@@ -12,6 +12,7 @@ public class Main {
 		week1to3.Task1 a1t1 = null;
 		week1to3.Task2 a1t2 = null;
 		week4to5.Task1 a2t1 = null;
+		week4to5.Task2 a2t2 = null;
 		
 //		String uLetters = a1t1.task1a();
 //		a1t1.task1aOutput(uLetters);
@@ -20,7 +21,8 @@ public class Main {
 //		a1t2.task2a();
 //		a1t2.task2b();
 		
-		a2t1.task1();
+//		a2t1.task1();
+		a2t2.task2Client();
 		
 		
 	}
