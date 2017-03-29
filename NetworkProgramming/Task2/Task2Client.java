@@ -3,49 +3,45 @@ import java.net.*;
 import java.util.Scanner;
 
 public class Task2Client {
-	private BufferedReader in;
-	private PrintWriter out;
+	private static BufferedReader in;
+	private static PrintWriter out;
 	
-	public Task2Client(){
+	public static void task2cResponse(){
+		System.out.println("im alive");
 		Scanner sc = new Scanner(System.in);
-//		String response = sc.nextLine();	
-		out.println(sc.nextLine());
-        String response;
+		String response = sc.nextLine();	
+		out.println(response);
+//        String response;
 	    try {
 	         response = in.readLine();
 	         if (response == null || response.equals("X")) {
 	               System.exit(0);
 	           }
+
+//	 		out.println(sc.nextLine());
 	     } catch (Exception ex) {
 	            response = "Error: " + ex;
 	     }
 	     System.out.println(response);
 	}
 	
-	public void connectToServer() throws UnknownHostException, IOException{
+	public static void connectToServer() throws UnknownHostException, IOException{
 		//getting server IP address
-//		Scanner sc = new Scanner(System.in);
-//		System.out.println("Please enter the IP Address");
 		String IPAddress = null;
 		InetAddress ip;
 		ip = InetAddress.getLocalHost();
 		IPAddress = ip.getHostAddress();
-		System.out.println("IPAddress = " + IPAddress);
 		
 		//initialize Streams
 		Socket socket = new Socket(IPAddress, 9898);
 		in = new BufferedReader(
                 new InputStreamReader(socket.getInputStream()));
-        out = new PrintWriter(socket.getOutputStream(), true);
-        
-//     // Consume the initial welcoming messages from the server
-//        for (int i = 0; i < 3; i++) {
-//            System.out.print((in.readLine() + "\n"));
-//        }
+        out = new PrintWriter(socket.getOutputStream(), true);        
 	}
 	
 	public static void main(String[] args) throws Exception{
 		Task2Client client = new Task2Client();
 		client.connectToServer();
+		client.task2cResponse();
 	}
 }

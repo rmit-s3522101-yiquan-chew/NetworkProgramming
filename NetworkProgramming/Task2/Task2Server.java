@@ -39,13 +39,13 @@ public class Task2Server {
 				DataOutputStream stream = new DataOutputStream(new FileOutputStream(file));
 				
 				//main function start
-				out.println("Hello World");
-				out.println("Please enter a line or \"X\" to quit");
+//				out.println("Hello World");
+//				out.println("Please enter a line or \"X\" to quit");
 				
 				//get line from client, write to file, return capitalized
 				while (true) {
                     String input = in.readLine();
-                    if (input == null || input.equals(".")) {
+                    if (input == null || input.equals("X")) {
                         break;
                     }
                     out.println(input.toUpperCase());
