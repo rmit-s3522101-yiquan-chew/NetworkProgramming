@@ -39,7 +39,7 @@ public class Main {
 		}finally{
 			listener.close();
 		}
-		a2t2.task2Client(2017);
+//		a2t2.task2Client(2017);
 		
 		
 	}
