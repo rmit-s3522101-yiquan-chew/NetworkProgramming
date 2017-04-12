@@ -22,7 +22,28 @@ public class Main {
 //		a1t2.task2a();
 //		a1t2.task2b();
 		
+<<<<<<< HEAD
 		a2t1.task1();
+=======
+//		a2t1.task1();
+		
+		/**
+		 * The following code is based on http://cs.lmu.edu/~ray/notes/javanetexamples/
+		 * Its an application make the server runs in infinite loop on port 2017
+		 */
+		//server connection setup
+		System.out.println("Running capitalization server");
+		int cNumber = 0;
+		ServerSocket listener = new ServerSocket(2017);
+		try{
+			while(true){
+				a2t2.task2Server(listener.accept(), cNumber++);
+			}
+		}finally{
+			listener.close();
+		}
+//		a2t2.task2Client(2017);
+>>>>>>> branch 'master' of https://github.com/rmit-s3522101-yiquan-chew/NetworkProgramming.git
 		
 		
 	}
