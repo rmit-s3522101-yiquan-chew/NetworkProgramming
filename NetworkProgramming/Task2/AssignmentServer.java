@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-class Task2Server {
+class AssignmentServer {
 	
 	//server generates random number
     private static int serverNumber = 0;

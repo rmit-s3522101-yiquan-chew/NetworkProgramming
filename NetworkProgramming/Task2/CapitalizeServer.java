@@ -4,19 +4,21 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ThreadLocalRandom;
 
-/**
- * A server program which accepts requests from clients to
- * capitalize strings.  When clients connect, a new thread is
- * started to handle an interactive dialog in which the client
- * sends in a string and the server thread sends back the
- * capitalized version of the string.
- *
- * The program is runs in an infinite loop, so shutdown in platform
- * dependent.  If you ran it from a console window with the "java"
- * interpreter, Ctrl+C generally will shut it down.
- */
 public class CapitalizeServer {
+	//server generates random number
+    private static int serverNumber = 0;
+    private static int serverGenerate(){
+    	int min = 0;
+    	int max = 2;
+    	
+    	int randomNum = ThreadLocalRandom.current().nextInt(min, max+1);
+    	//refer to http://stackoverflow.com/questions/363681/how-to-generate-random-integers-within-a-specific-range-in-java
+    	//quote: nextInt is normally exclusive of the top value, add 1 to make it inclusive.
+    	serverNumber = randomNum;
+    	return serverNumber;
+    }
 
     /**
      * Application method to run the server runs in an infinite loop
@@ -28,6 +30,9 @@ public class CapitalizeServer {
      */
     public static void main(String[] args) throws Exception {
         System.out.println("The capitalization server is running.");
+        
+        System.out.println("random number generation testing. the number is " + serverGenerate());
+        
         int clientNumber = 0;
         ServerSocket listener = new ServerSocket(9898);
         try {
@@ -100,6 +105,6 @@ public class CapitalizeServer {
          */
         private void log(String message) {
             System.out.println(message);
-        }
+        }       
     }
 }

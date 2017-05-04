@@ -3,7 +3,7 @@ import java.net.*;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Task2Client {
+public class AssignmentClient {
 
 	//client generates random number
     private static int clientGNumber = 0;

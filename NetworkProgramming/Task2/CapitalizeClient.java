@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -96,6 +97,20 @@ public class CapitalizeClient {
     /**
      * Runs the client application.
      */
+    
+    //client generates random number
+    private static int clientGNumber = 0;
+    private static int clientGenerate(){
+    	int min = 0;
+    	int max = 2;
+    	
+    	int randomNum = ThreadLocalRandom.current().nextInt(min, max+1);
+    	//refer to http://stackoverflow.com/questions/363681/how-to-generate-random-integers-within-a-specific-range-in-java
+    	//quote: nextInt is normally exclusive of the top value, add 1 to make it inclusive.
+    	clientGNumber = randomNum;
+    	return clientGNumber;
+    }
+    
     public static void main(String[] args) throws Exception {
         CapitalizeClient client = new CapitalizeClient();
         client.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

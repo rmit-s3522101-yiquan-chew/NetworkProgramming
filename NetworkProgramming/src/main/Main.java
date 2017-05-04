@@ -22,9 +22,6 @@ public class Main {
 //		a1t2.task2a();
 //		a1t2.task2b();
 		
-<<<<<<< HEAD
-		a2t1.task1();
-=======
 //		a2t1.task1();
 		
 		/**
@@ -43,7 +40,6 @@ public class Main {
 			listener.close();
 		}
 //		a2t2.task2Client(2017);
->>>>>>> branch 'master' of https://github.com/rmit-s3522101-yiquan-chew/NetworkProgramming.git
 		
 		
 	}

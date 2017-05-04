@@ -2,22 +2,27 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+//class for reading input function
 class InputLine {
 	private String input;
 	public InputLine(){
 		Scanner sc = new Scanner(System.in);
 		input = sc.nextLine();
+		
+		//exit the program if input = "x"
 		if(input.equals("x")){
 			System.out.println("Exiting Threads");
 			System.exit(0);
 		}
 	}
+	//for global usage on input
 	public String toString(){return input;}
 }
 
 class InputThread extends Thread {
 	private ThreadCooperation tc;
 	
+	//initializing inputThread
 	public InputThread(ThreadCooperation tc) throws IOException{
 		this.tc = tc;
 		start();
@@ -38,7 +43,6 @@ class InputThread extends Thread {
 				try {
 					Thread.sleep(50);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}			
@@ -51,6 +55,7 @@ class PrinterThread extends Thread {
 	private ThreadCooperation tc;
 	private InputThread iThread;
 	
+	//initialing printerThread
 	public PrinterThread(ThreadCooperation tc, InputThread iThread) throws IOException{
 		this.iThread = iThread;
 		this.tc = tc;
@@ -58,8 +63,8 @@ class PrinterThread extends Thread {
 	}
 
 	public void run() {
+		System.out.println("Running printer thread");
 		while(true){
-//			System.out.println("Running printer thread");
 			if(tc.inputLine == null){
 				tc.inputLine = new InputLine();
 				System.out.println("Waiting for input...");
@@ -72,7 +77,9 @@ class PrinterThread extends Thread {
 	}
 }
 
+//Main function
 public class ThreadCooperation{
+	
 	InputLine inputLine;
 	public static void main(String[] args) {
 		try {
