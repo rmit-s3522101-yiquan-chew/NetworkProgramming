@@ -14,12 +14,11 @@ public class AssignmentClient {
     	int randomNum = ThreadLocalRandom.current().nextInt(min, max+1);
     	//refer to http://stackoverflow.com/questions/363681/how-to-generate-random-integers-within-a-specific-range-in-java
     	//quote: nextInt is normally exclusive of the top value, add 1 to make it inclusive.
-    	clientGNumber = randomNum;
-    	return clientGNumber;
+    	return randomNum;
     }
-	
-	public static void main(String[] args) throws Exception{
-		Socket cSocket = null;
+    
+    public static void connectingServer(){
+    	Socket cSocket = null;
 		DataOutputStream dOut = null;
 		BufferedReader dIn = null;
 		PrintWriter out = null;
@@ -49,11 +48,15 @@ public class AssignmentClient {
 			BufferedReader stdIn = new BufferedReader(new InputStreamReader(
 					System.in));
 			String uInput;
+			
+			System.out.println("clientGNumber = " + clientGNumber);
+			out.println(clientGNumber);
+			
 			while((uInput = stdIn.readLine()) != null){
 				
 				//check "X"
-				if(uInput.equals("X")){
-					out.println("See ya");
+				if(uInput.equalsIgnoreCase("x")){
+					System.out.println("See ya");
 					break;
 				}
 				
@@ -69,6 +72,10 @@ public class AssignmentClient {
 		}catch(Exception e){
 			System.out.println(e);
 		}
-		
+    }
+	
+	public static void main(String[] args) throws Exception{
+		clientGNumber = clientGenerate();
+		connectingServer();	
 	}
 }
