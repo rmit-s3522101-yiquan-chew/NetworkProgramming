@@ -3,7 +3,7 @@ import java.net.*;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class AssignmentClient {
+public class AssignmentTask2Client {
 
 	//client generates random number
     private static int clientGNumber = 0;
@@ -19,10 +19,8 @@ public class AssignmentClient {
     
     public static void connectingServer(){
     	Socket cSocket = null;
-		DataOutputStream dOut = null;
 		BufferedReader dIn = null;
 		PrintWriter out = null;
-		String response;
 		
 		try{
 			//getting server IP address
@@ -32,8 +30,10 @@ public class AssignmentClient {
 			IPAddress = ip.getHostAddress();
 			
 			//connecting socket
-			cSocket = new Socket(IPAddress.toString(), 9999);
-			System.out.println("socket connected");
+			cSocket = new Socket(IPAddress, 9999);
+			System.out.println("Socket connected");
+			//register
+			System.out.println("Type \"r\" to register, or \"x\" to quit.");
 			dIn = new BufferedReader(new InputStreamReader (cSocket.getInputStream()));
 			
 			out = new PrintWriter(cSocket.getOutputStream(), true);
@@ -43,25 +43,32 @@ public class AssignmentClient {
 		}
 		
 		try{
-			//Capitalization
-			System.out.println("Echo now");
 			BufferedReader stdIn = new BufferedReader(new InputStreamReader(
 					System.in));
 			String uInput;
 			
-			System.out.println("clientGNumber = " + clientGNumber);
-			out.println(clientGNumber);
-			
 			while((uInput = stdIn.readLine()) != null){
-				
-				//check "X"
-				if(uInput.equalsIgnoreCase("x")){
-					System.out.println("See ya");
-					break;
-				}
-				
-				out.println(uInput);
-				System.out.println("Echo: " + dIn.readLine());
+				//generate client number
+				if(uInput.equalsIgnoreCase("g")){
+					int uInt = 0;
+					uInt = clientGenerate();
+					out.println(uInt);
+				}else
+					out.println(uInput);
+				while(dIn != null){
+					//check "X"
+					if((dIn.readLine()).equalsIgnoreCase("x")){
+						System.out.println("See ya");
+						break;
+					}
+					
+					//check choosen
+					if((dIn.readLine()).equals("You are the choosen one!!!")){
+						System.out.println("Please enter \"g\" to continue.");
+					}
+//					System.out.println("Echo: " + dIn.readLine());
+				}				
+				out.flush();
 			}
 							
 			//Closing the socket and stream

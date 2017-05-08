@@ -2,9 +2,13 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class AssignmentClient {
-
+public class AssignmentTask1Client {
 	//client generates random number
     private static int clientGNumber = 0;
     private static int clientGenerate(){
@@ -43,13 +47,12 @@ public class AssignmentClient {
 		}
 		
 		try{
-			//Capitalization
+			//Betting
 			System.out.println("Echo now");
 			BufferedReader stdIn = new BufferedReader(new InputStreamReader(
 					System.in));
 			String uInput;
 			
-			System.out.println("clientGNumber = " + clientGNumber);
 			out.println(clientGNumber);
 			
 			while((uInput = stdIn.readLine()) != null){
@@ -73,7 +76,7 @@ public class AssignmentClient {
 			System.out.println(e);
 		}
     }
-	
+    
 	public static void main(String[] args) throws Exception{
 		clientGNumber = clientGenerate();
 		connectingServer();	

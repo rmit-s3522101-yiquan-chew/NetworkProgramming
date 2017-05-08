@@ -1,8 +1,16 @@
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.FileHandler;
+import java.util.logging.Formatter;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
-class AssignmentServer {
+class AssignmentTask1Server {
+	//logging server
+	final static Logger LOGGER = Logger.getLogger(AssignmentTask1Client.class.getName());
 	
 	//server generates random number
     private static int serverGNumber = 0;
@@ -18,27 +26,9 @@ class AssignmentServer {
     	return randomNum;
     }
     
-    public static void log(String log) throws IOException{
-    	DataOutputStream stream = null;
-    	
-    	//preparing file
-		File file = new File("ServerLog.txt");
-//		if(file.exists() == false)
-//			file.createNewFile();
-		stream = new DataOutputStream(new FileOutputStream(file));
-		
-		//write to file
-		stream.writeChars(log + "\n");
-		
-		stream.close();
-    }
-    
-    //check differents of clientGnumber and combineNumber
+    //check differences of clientGnumber and combineNumber
     public static boolean check(int clientNumber){
-    	if(clientNumber > 4 || clientNumber < 0){
-    		return false;
-    	}
-    	else if (Integer.compare(clientNumber, combineNumber) < 2){
+    	if (Math.abs(clientNumber - combineNumber) < 2){
     		return true;
     	}    	
     	return false;
@@ -46,6 +36,7 @@ class AssignmentServer {
     
     public static void connectingClient(){
     	//initializing
+    	LOGGER.info("INITIALIZING THE SERVER");
     	ServerSocket sSocket = null;
     	int serverPort = 9999;
     	
@@ -68,36 +59,69 @@ class AssignmentServer {
     		out = new PrintWriter(cSocket.getOutputStream(), true);
     		
     		//get and combine number from client
+    		LOGGER.info("CONNECT WITH CLIENT");
+    		
+    		LOGGER.info("GETTING CLIENT NUMBER");
     		int clientGNumber = Integer.parseInt(in.readLine());
     		combineNumber = serverGNumber + clientGNumber;
-    		System.out.println("serverGNumber = " + serverGNumber);
-    		System.out.println("clientGNumber = " + clientGNumber);
-    		System.out.println("combineNumber = " + combineNumber);
+    		
+    		LOGGER.info("serverGNumber = " + serverGNumber);
+    		LOGGER.info("clientGNumber = " + clientGNumber);
+    		LOGGER.info("combineNumber = " + combineNumber);
     		    				
     		while((inputLine = in.readLine()) != null){
     			int inputInt = Integer.parseInt(inputLine);
-    			
+    			LOGGER.info("CLIENT NUMBER = " + inputInt);
     			//check
+    			LOGGER.info("CHECKING CLIENT NUMBER AND COMBINED NUMBER");
     			boolean check = check(inputInt);
     			
     			if(check == true){
+    				LOGGER.info("CLIENT SUCCESSFULLY BET THE NUMBER");
     				out.println("You got it!");
     				break;
     			}
     			else{
+    				LOGGER.info("CLIENT UNSUCCESSFULLY BET THE NUMBER");
     				out.println("Please try again. Do remember to guess between 0-4!");
     			}
     		}
-    			out.close();
-    			in.close();
-    			cSocket.close();
-    			sSocket.close();    				
+    		
+    		LOGGER.info("CLOSING THE SERVER");
+    		out.close();
+    		in.close();
+    		cSocket.close();
+    		sSocket.close();    				
     	}catch(Exception e){
     		System.out.println(e);
     	}
     }
 	
+    //handling log
+    public static void logHandle(){
+    	Handler fileHandler = null;
+    	Formatter simpleFormatter = null;
+    	try {
+    		//save log to file
+    		fileHandler = new FileHandler("./Task1Server.log");
+    		//format log in readable format
+    		simpleFormatter = new SimpleFormatter();
+    		
+			LOGGER.addHandler(fileHandler);
+			
+			//setting formatter to handler
+			fileHandler.setFormatter(simpleFormatter);
+			fileHandler.setLevel(Level.ALL);
+			
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
 	public static void main(String[] args){
+		logHandle();
 		serverGNumber = serverGenerate();
 		connectingClient();		
 	}
