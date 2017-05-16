@@ -4,6 +4,7 @@
 	<classpathentry kind="src" path="Task2"/>
 	<classpathentry kind="src" path="AssignmentTask1"/>
 	<classpathentry kind="src" path="AssignmentTask2"/>
+	<classpathentry kind="src" path="Week11"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

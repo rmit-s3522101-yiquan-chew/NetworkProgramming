@@ -66,7 +66,16 @@ public class ServerThread extends Thread{
     		int clientGNumber = Integer.parseInt((in.readLine()));
     		combineNumber += clientGNumber;
     	}    	
-    	return combineNumber;
+    	return combineNumber + serverGNumber;
+    }
+    
+    //register client into waitingList
+    public static boolean register(Socket cSocket){
+    	if(waitingList.size() < 5){
+    		waitingList.add(cSocket);
+    		return true;
+    	}
+    	return false;
     }
         
 	//betting function

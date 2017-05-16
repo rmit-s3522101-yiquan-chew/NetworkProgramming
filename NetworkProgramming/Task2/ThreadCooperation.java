@@ -80,8 +80,7 @@ class PrinterThread extends Thread {
 //Main function
 public class ThreadCooperation{
 	
-	InputLine inputLine;
-	public static void main(String[] args) {
+	public static void threadHandler(){
 		try {
 			ThreadCooperation tc = new ThreadCooperation();
 			InputThread it = new InputThread(tc);
@@ -91,7 +90,11 @@ public class ThreadCooperation{
 		catch (IOException e){
 			System.out.println(e);
 		}
-
+	}
+	
+	InputLine inputLine;
+	public static void main(String[] args) {
+		threadHandler();
 	}
 
 }
