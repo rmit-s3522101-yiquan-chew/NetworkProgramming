@@ -48,7 +48,7 @@ public class Week11Client {
 				//reading from server
 				int bytesRead = socketChannel.read(buf);
 				
-				readBuffer readBufferThread = new readBuffer(socketChannel, buf);
+				readBuffer readBufferThread = new readBuffer(socketChannel, buf, writeBufferThread);
 				readBufferThread.start();
 			}
 			
@@ -65,16 +65,16 @@ class readBuffer extends Thread{
 	private static writeBuffer writeThread;
 	
 	//receive buffer and print it out
-	public readBuffer(SocketChannel socketChannel, ByteBuffer buffer){
+	public readBuffer(SocketChannel socketChannel, ByteBuffer buffer, writeBuffer writeThread){
 		this.socketChannel = socketChannel;
 		this.buffer = buffer;
-		start();
+		this.writeThread = writeThread;
 	}
 	
 	public void run(){
 		synchronized(writeThread){
 			try {
-				wait();
+				writeThread.wait();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
